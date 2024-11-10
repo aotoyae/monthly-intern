@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface UserInfo {
   id: number;
@@ -12,6 +13,7 @@ const Join = () => {
   const [nickname, setNickname] = useState<string>('');
   const [pw, setPw] = useState<string>('');
   const [response, setResponse] = useState<UserInfo | null>(null);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,6 +36,7 @@ const Join = () => {
 
       const data = await response.json();
       setResponse(data);
+      navigate('/login');
     } catch (err) {
       console.error(err);
     }
@@ -71,7 +74,6 @@ const Join = () => {
             회원가입
           </button>
         </form>
-        {response && <h1>{response.userId}</h1>}
       </div>
     </main>
   );

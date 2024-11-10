@@ -1,13 +1,29 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [id, setId] = useState<string>('');
   const [pw, setPw] = useState<string>('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // handleLogin();
+    try {
+      const response = await fetch(
+        `https://jsonplaceholder.typicode.com/users?userId=${id}`
+      );
+      const data = await response.json();
+
+      if (data.length > 0) {
+        setId(data[0].id); // 로그인 성공
+        navigate('/');
+      } else {
+        console.log('사용자를 찾을 수 없습니다.');
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
