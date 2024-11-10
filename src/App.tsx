@@ -1,8 +1,10 @@
+import Router from './Router';
+
 function App() {
   return (
-    <>
-      <h1 className="text-red-500">monthly-intern</h1>
-    </>
+    <main className="flex flex-col items-center">
+      <Router />
+    </main>
   );
 }
 
