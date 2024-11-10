@@ -20,7 +20,7 @@ const Login = () => {
   };
 
   return (
-    <main className="mt-44">
+    <main className="mt-32">
       <div className="flex w-[420px] flex-col justify-center gap-12 rounded-lg border border-solid px-6 py-12">
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-4">
