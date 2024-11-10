@@ -1,19 +1,10 @@
 import { useState } from 'react';
 
 const Login = () => {
-  const [id, setId] = useState('');
-  const [pw, setPw] = useState('');
+  const [id, setId] = useState<string>('');
+  const [pw, setPw] = useState<string>('');
 
-  // const handleLogin = async () => {
-  //   try {
-  //     const response = await axios.post(`${MOCK_URL}/login`);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // handleLogin();

@@ -1,29 +1,44 @@
 import { useState } from 'react';
 
+interface UserInfo {
+  id: number;
+  userId: string;
+  nickname: string;
+  pw: string;
+}
+
 const Join = () => {
-  const [id, setId] = useState('');
-  const [nickname, setNickname] = useState('');
-  const [pw, setPw] = useState('');
+  const [id, setId] = useState<string>('');
+  const [nickname, setNickname] = useState<string>('');
+  const [pw, setPw] = useState<string>('');
+  const [response, setResponse] = useState<UserInfo | null>(null);
 
-  // const handleJoin = async () => {
-  //   const data = {
-  //     id,
-  //     nickname,
-  //     pw,
-  //   };
-
-  //   try {
-  //     const response = await axios.post(`${MOCK_URL}/user`, data);
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // handleJoin();
+
+    try {
+      const response = await fetch(
+        'https://jsonplaceholder.typicode.com/users',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: id,
+            nickname,
+            pw,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      setResponse(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
+  console.log(response);
 
   return (
     <main className="mt-32">
@@ -56,6 +71,7 @@ const Join = () => {
             회원가입
           </button>
         </form>
+        {response && <h1>{response.userId}</h1>}
       </div>
     </main>
   );
