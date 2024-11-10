@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -17,24 +18,19 @@ const Join = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const userData = {
+      id,
+      nickname,
+      pw,
+    };
 
     try {
-      const response = await fetch(
+      const response = await axios.post(
         'https://jsonplaceholder.typicode.com/users',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            userId: id,
-            nickname,
-            pw,
-          }),
-        }
+        userData
       );
 
-      const data = await response.json();
+      const data = await response.data;
       setResponse(data);
       navigate('/login');
     } catch (err) {

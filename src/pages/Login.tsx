@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,10 +11,10 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(
+      const response = await axios.get(
         `https://jsonplaceholder.typicode.com/users?userId=${id}`
       );
-      const data = await response.json();
+      const data = await response.data;
 
       if (data.length > 0) {
         setId(data[0].id); // 로그인 성공
